@@ -549,7 +549,8 @@ function startTimer() {
     if (datepicker.selectedDates.length > 0) {
         targetDate = new Date(datepicker.selectedDates[0]);
         updateTimer();
-        setInterval(updateTimer, 1000);
+        clearInterval(intervalId); // Остановка предыдущего интервала (если существует)
+        intervalId = setInterval(updateTimer, 1000);
     } else (0, _notiflixDefault.default).Notify.warning("Please choose a date");
 }
 function updateTimer() {
