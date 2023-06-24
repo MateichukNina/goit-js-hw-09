@@ -545,11 +545,12 @@ function formatTime(value) {
     return value.toString().padStart(2, "0");
 }
 btnStart.addEventListener("click", startTimer);
+let intervalId;
 function startTimer() {
     if (datepicker.selectedDates.length > 0) {
         targetDate = new Date(datepicker.selectedDates[0]);
         updateTimer();
-        clearInterval(intervalId); // Остановка предыдущего интервала (если существует)
+        clearInterval(intervalId);
         intervalId = setInterval(updateTimer, 1000);
     } else (0, _notiflixDefault.default).Notify.warning("Please choose a date");
 }
@@ -564,6 +565,11 @@ function updateTimer() {
         dataSeconds.textContent = formatTime(seconds);
         btnStart.disabled = false;
     } else {
+        clearInterval(intervalId);
+        // dataDays.textContent = '00';
+        // dataHours.textContent = '00';
+        // dataMinutes.textContent = '00';
+        // dataSeconds.textContent = '00';
         (0, _notiflixDefault.default).Notify.failure("Please choose a date in the future");
         btnStart.disabled = true;
     }
